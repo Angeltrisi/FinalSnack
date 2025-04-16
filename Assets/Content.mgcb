@@ -1,0 +1,31 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:DesktopGL
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+
+#---------------------------------- Content ---------------------------------#
+
+#begin Fonts/Peaberry.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Peaberry.spritefont
+
+#begin Music/dedede.ogg
+/copy:Music/dedede.ogg
+
+#begin Sounds/Kirby/float.ogg
+/copy:Sounds/Kirby/float.ogg;Sounds/Kirby/float
+
+#begin Sounds/Kirby/jump.ogg
+/copy:Sounds/Kirby/jump.ogg;Sounds/Kirby/jump
+
