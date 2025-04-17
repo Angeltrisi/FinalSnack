@@ -41,6 +41,20 @@ namespace FinalSnack
         public static Entity[] EntitiesNeedToUpdate { get; private set; } = new Entity[512];
         public static Kirby MyKirby { get; private set; }
         public static bool GameFocused => Instance.IsActive;
+        private static RenderTarget2D _mainRenderTarget;
+
+        private static int _pixelScale = 3;
+        public static int PixelScale
+        {
+            get
+            {
+                return _pixelScale;
+            }
+            set
+            {
+                _pixelScale = value;
+            }
+        }
         public Main(INativeFmodLibrary nativeLibrary)
         {
             Instance = this;
@@ -61,9 +75,22 @@ namespace FinalSnack
             // do not remove this call
             base.Initialize();
 
+            // init graphics properly. subscribe to window size change event
+            Window.ClientSizeChanged += SizeChanged;
+            ReinitializeGraphics();
+
             // actually initialize game!
 
             MyKirby = new(Vector2.One * 32f);
+        }
+
+        private void ReinitializeGraphics()
+        {
+            _mainRenderTarget = new(GraphicsDevice, ScreenWidth / _pixelScale, ScreenHeight / _pixelScale);
+        }
+        private void SizeChanged(object sender, EventArgs e)
+        {
+            ReinitializeGraphics();
         }
 
         protected override void LoadContent()
@@ -155,9 +182,10 @@ namespace FinalSnack
 
         protected override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.SetRenderTarget(_mainRenderTarget);
+
             GraphicsDevice.Clear(new(21, 26, 24));
 
-            float scale = 3f;
             //spriteBatch.Begin(transformMatrix: Matrix.CreateScale(scale) * Matrix.CreateTranslation(ScreenWidth * 0.3f, ScreenHeight * 0.13f, 0f));
             spriteBatch.Begin();
 
@@ -173,6 +201,12 @@ namespace FinalSnack
 
             Debugging.Audio.DrawAudioPositionData(spriteBatch, dedede, dededeC);
 
+            spriteBatch.End();
+
+            GraphicsDevice.SetRenderTarget(null);
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+            spriteBatch.Draw(_mainRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, _pixelScale, SpriteEffects.None, 0f);
             spriteBatch.End();
             // similarly, we do not call base.draw here
         }

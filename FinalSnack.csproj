@@ -32,6 +32,11 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="_NewFModLibraryFiles\**" />
+	  <EmbeddedResource Remove="_NewFModLibraryFiles\**" />
+	  <None Remove="_NewFModLibraryFiles\**" />
+	</ItemGroup>
   <ItemGroup>
     <Folder Include="GameContent\Levels\" />
   </ItemGroup>

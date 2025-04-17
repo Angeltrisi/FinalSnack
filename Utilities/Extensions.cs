@@ -4,7 +4,12 @@ namespace FinalSnack.Utilities
 {
     public static class Extensions
     {
-        public static float Delta(this GameTime gt) => (float)gt.ElapsedGameTime.TotalSeconds;
+        /// <summary>
+        /// Gets a normalized delta time for the previous frame.
+        /// </summary>
+        /// <param name="gt"></param>
+        /// <returns></returns>
+        public static float Delta(this GameTime gt) => (float)(gt.ElapsedGameTime.TotalSeconds * 60.0d);
         public static Rectangle Inflated(this Rectangle r, int halfWidth, int halfHeight)
         {
             return new(r.X - halfWidth, r.Y - halfHeight, r.Width + (halfWidth * 2), r.Height + (halfHeight * 2));

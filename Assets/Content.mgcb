@@ -24,8 +24,8 @@
 /copy:Music/dedede.ogg
 
 #begin Sounds/Kirby/float.ogg
-/copy:Sounds/Kirby/float.ogg;Sounds/Kirby/float
+/copy:Sounds/Kirby/float.ogg
 
 #begin Sounds/Kirby/jump.ogg
-/copy:Sounds/Kirby/jump.ogg;Sounds/Kirby/jump
+/copy:Sounds/Kirby/jump.ogg
 

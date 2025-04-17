@@ -5,6 +5,10 @@ namespace FinalSnack.Core.DataStructures
 {
     public struct Tile
     {
+        // LARGE TODO:
+        // REMOVE BACKING FIELDS COMPLETELY FOR BETTER MEMORY USAGE
+        // DON'T USE BITOPS CLASS
+
         private uint _packedValue;
         // 9 bit int
         private ushort _cutPointB;

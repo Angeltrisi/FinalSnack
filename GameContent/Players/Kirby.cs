@@ -12,20 +12,21 @@ namespace FinalSnack.GameContent.Players
 {
     public class Kirby : Entity
     {
+        public bool floating = false;
         public Kirby(Vector2 position)
         {
             this.position = position;
         }
         public override void Init()
         {
-            width = height = 64;
+            width = height = 24;
         }
         public override void Update(GameTime gt)
         {
             float dt = gt.Delta();
-            Rectangle ground = new(0, Main.ScreenHeight - height, Main.ScreenWidth, height);
+            Rectangle ground = new(0, Main.ScreenHeight / Main.PixelScale - height, Main.ScreenWidth / Main.PixelScale, height);
 
-            float veloChangeControl = 950f;
+            float veloChangeControl = 2f;
             float finalXVeloChange = 0f;
 
             if (Input.HoldPress(new(Keys.D)))
@@ -33,14 +34,15 @@ namespace FinalSnack.GameContent.Players
             if (Input.HoldPress(new(Keys.A)))
                 finalXVeloChange -= veloChangeControl;
 
-            float grav = 800f;
+            bool jumping = Input.HoldPress(new(Keys.Space)) && velocity.Y < 0f;
+            float grav = jumping ? 0.15f : 0.3f;
             Vector2 change = new(finalXVeloChange, grav);
 
             velocity += change * dt;
 
-            float frictionPerSecond = 600f;
-            float jumpPower = 400f;
-            float maxSpeed = 300f;
+            float frictionPerSecond = 1f;
+            float jumpPower = 5f;
+            float maxSpeed = 5f;
 
             if (velocity.X > 0)
             {
